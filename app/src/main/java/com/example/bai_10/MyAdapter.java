@@ -1,5 +1,6 @@
 package com.example.bai_10;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,27 +8,32 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<CountryViewHolder> {
-    private List<Country> countryList;
-
-    public MyAdapter(List<Country> countryList) {
-        this.countryList = countryList;
+    private List  countryList;
+    LayoutInflater mInflater;
+    public MyAdapter(Context context, List list){
+        mInflater = LayoutInflater.from(context);
+        this.countryList = list;
     }
 
     @NonNull
     @Override
     public CountryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_country, parent, false);
-        return new CountryViewHolder(view);
+        View view = mInflater.inflate(R.layout.country_layout,parent,false);
+        CountryViewHolder holder = new CountryViewHolder(view, this);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
-        Country country = countryList.get(position);
-        holder.countryName.setText(country.getName());
+        String country = (String) countryList.get(position);
+        holder.tid.setText(String.valueOf(position+1)+ " ");
+        holder.tcountry.setText(country);
     }
+
 
     @Override
     public int getItemCount() {

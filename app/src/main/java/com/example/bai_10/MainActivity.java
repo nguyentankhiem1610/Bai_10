@@ -1,6 +1,7 @@
 package com.example.bai_10;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    Button btLoad;
+    List countrylist = new ArrayList<>();
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +31,25 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        countrylist.add("Vietnam");
+        countrylist.add("Japan");
+        countrylist.add("South Korea");
+        countrylist.add("United States");
+        countrylist.add("United Kingdom");
+        countrylist.add("Germany");
+        countrylist.add("France");
+        countrylist.add("Singapore");
 
-        List<Country> countries = new ArrayList<>();
-        for (int i = 1; i <= 10; i++) {
-            countries.add(new Country("Country " + i));
-        }
+        recyclerView = findViewById(R.id.recyclerView);
+        btLoad = findViewById(R.id.btLoad);
 
-        MyAdapter adapter = new MyAdapter(countries);
-        recyclerView.setAdapter(adapter);
+        btLoad.setOnClickListener(view -> {
+            MyAdapter myAdapter = new MyAdapter(view.getContext(), countrylist);
+            recyclerView.setLayoutManager(
+                    new LinearLayoutManager(this)
+            );
+            recyclerView.setAdapter(myAdapter);
+        });
+
     }
 }
