@@ -8,36 +8,29 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class ArticleViewHolder extends RecyclerView.ViewHolder
+        implements View.OnClickListener {
 
-    private final TextView txtTitle;
-    private final TextView txtContent;
-    private final TextView txtView;
-    private final ImageView imgCover;
+    final TextView tvTitle;
+    final TextView tvContent;
+    final TextView tvView;
+    final ImageView imgCover;
 
     private final ArticleAdapter adapter;
 
     public ArticleViewHolder(
-            @NonNull View itemView,
-            ArticleAdapter adapter
-    ) {
+            @NonNull View itemView, ArticleAdapter adapter) {
+
         super(itemView);
 
         this.adapter = adapter;
 
-        txtTitle = itemView.findViewById(R.id.txtTitle);
-        txtContent = itemView.findViewById(R.id.txtContent);
-        txtView = itemView.findViewById(R.id.txtView);
+        tvTitle = itemView.findViewById(R.id.txtTitle);
+        tvContent = itemView.findViewById(R.id.txtContent);
+        tvView = itemView.findViewById(R.id.txtView);
         imgCover = itemView.findViewById(R.id.imgCover);
 
         itemView.setOnClickListener(this);
-    }
-
-    public void bind(Article article) {
-        txtTitle.setText(article.getTitle());
-        txtContent.setText(article.getContent());
-        imgCover.setImageResource(article.getImgCover());
-        txtView.setText("Lượt xem: " + article.getView());
     }
 
     @Override
@@ -54,8 +47,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.O
         adapter.notifyItemChanged(position);
 
         Intent intent = new Intent(
-                v.getContext(),
-                DetailActivity.class
+                v.getContext(), DetailActivity.class
         );
 
         intent.putExtra("title", article.getTitle());

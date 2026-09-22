@@ -29,13 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         createArticles();
 
-        // Hiển thị danh sách theo chiều dọc.
         recyclerArticles.setLayoutManager(
                 new LinearLayoutManager(this)
         );
 
-        // Gắn dữ liệu vào RecyclerView thông qua Adapter.
-        ArticleAdapter adapter = new ArticleAdapter(articles);
+        ArticleAdapter adapter = new ArticleAdapter(this, articles);
         recyclerArticles.setAdapter(adapter);
     }
 
